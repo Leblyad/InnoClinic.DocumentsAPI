@@ -2,6 +2,8 @@
 using InnoClinic.DocumentsAPI.Application.Services.Abstractions;
 using InnoClinic.DocumentsAPI.Core.Contracts.Repositories.UserRepositories;
 using InnoClinic.DocumentsAPI.Infrastructure.Repository;
+using InnoClinic.DocumentsAPI.Middlewares;
+using Serilog;
 
 namespace InnoClinic.DocumentsAPI.Extensions
 {
@@ -20,13 +22,28 @@ namespace InnoClinic.DocumentsAPI.Extensions
         {
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IDocumentService, DocumentService>();
-            services.AddScoped<IUploadService, UploadService>();
+            services.AddScoped<IBlobRepository, BlobRepository>();
         }
 
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IDocumentRepository, DocumentRepository>();
+        }
+
+        public static void ConfigureLogger(this ILoggingBuilder logging, IConfiguration configuration)
+        {
+            var logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger();
+            logging.ClearProviders();
+            logging.AddSerilog(logger);
+        }
+
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
         }
     }
 }

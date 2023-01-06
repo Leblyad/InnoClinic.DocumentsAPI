@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.ConfigureCors();
+builder.Logging.ConfigureLogger(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureRepositories();
@@ -16,7 +17,7 @@ builder.Services.AddAzureClients(clientBuilder =>
 {
     clientBuilder.AddBlobServiceClient(builder.Configuration["StorageConnectionString:blob"]);
     clientBuilder.AddQueueServiceClient(builder.Configuration["StorageConnectionString:queue"]);
-    clientBuilder.AddTableServiceClient(builder.Configuration["StorageConnectionString:queue"]);
+    clientBuilder.AddTableServiceClient(builder.Configuration["StorageConnectionString"]);
 });
 
 var app = builder.Build();
@@ -27,6 +28,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureExceptionHandler();
 
 app.UseHttpsRedirection();
 

@@ -1,11 +1,9 @@
 ﻿using Azure;
 using Azure.Data.Tables;
-using InnoClinic.DocumentsAPI.Core.Entities.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace InnoClinic.DocumentsAPI.Core.Entities.Models
 {
-    [Collection("Document")]
     public class Document : ITableEntity
     {
         [Required]

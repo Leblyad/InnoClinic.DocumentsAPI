@@ -2,6 +2,7 @@
 {
     public class PhotoForCreationDto
     {
-        public string Url { get; set; }
+        public string FileName { get; set; }
+        public byte[]? Value { get; set; }
     }
 }
