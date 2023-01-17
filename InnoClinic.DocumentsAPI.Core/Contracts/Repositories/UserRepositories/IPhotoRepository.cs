@@ -8,5 +8,6 @@ namespace InnoClinic.DocumentsAPI.Core.Contracts.Repositories.UserRepositories
         Task DeletePhotoAsync(string photoId);
         Task<Photo> GetPhotoAsync(string photoId);
         Task UpdatePhotoAsync(Photo photo);
+        Task<string> UploadPhotoAsync(string fileName, Stream fileStream);
     }
 }

@@ -11,12 +11,10 @@ namespace InnoClinic.DocumentsAPI.Application.Services
     public class DocumentService : IDocumentService
     {
         private readonly IDocumentRepository _documentRepository;
-        private readonly IBlobRepository _blobRepository;
         private readonly IMapper _mapper;
-        public DocumentService(IDocumentRepository documentRepository, IBlobRepository blobRepository, IMapper mapper)
+        public DocumentService(IDocumentRepository documentRepository, IMapper mapper)
         {
             _documentRepository = documentRepository;
-            _blobRepository = blobRepository;
             _mapper = mapper;
         }
 
@@ -27,7 +25,7 @@ namespace InnoClinic.DocumentsAPI.Application.Services
                 throw new CustomNullReferenceException(typeof(DocumentForCreationDto));
             }
 
-            var url = await _blobRepository.UploadAsync(document.FileName, new MemoryStream(document.Value));
+            var url = await _documentRepository.UploadDocumentAsync(document.FileName, new MemoryStream(document.Value));
 
             if (url == null)
             {
@@ -50,10 +48,21 @@ namespace InnoClinic.DocumentsAPI.Application.Services
         {
             var document = await _documentRepository.GetDocumentAsync(documentId.ToString());
 
-
             if (document == null)
             {
                 throw new DocumentNotFoundException(documentId);
+            }
+
+            return _mapper.Map<DocumentDto>(document);
+        }
+
+        public async Task<DocumentDto> GetDocumentByResultIdAsync(Guid resultId)
+        {
+            var document = await _documentRepository.GetDocumentByResultId(resultId);
+
+            if(document == null)
+            {
+                throw new DocumentNotFoundException(resultId);
             }
 
             return _mapper.Map<DocumentDto>(document);

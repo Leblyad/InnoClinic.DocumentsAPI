@@ -11,12 +11,10 @@ namespace InnoClinic.DocumentsAPI.Application.Services
     public class PhotoService : IPhotoService
     {
         private readonly IPhotoRepository _photoRepository;
-        private readonly IBlobRepository _blobRepository;
         private readonly IMapper _mapper;
-        public PhotoService(IPhotoRepository photoRepository, IBlobRepository blobRepository, IMapper mapper)
+        public PhotoService(IPhotoRepository photoRepository, IMapper mapper)
         {
             _photoRepository = photoRepository;
-            _blobRepository = blobRepository;
             _mapper = mapper;
         }
 
@@ -27,7 +25,7 @@ namespace InnoClinic.DocumentsAPI.Application.Services
                 throw new CustomNullReferenceException(typeof(PhotoForCreationDto));
             }
 
-            var url = await _blobRepository.UploadAsync(photo.FileName, new MemoryStream(photo.Value));
+            var url = await _photoRepository.UploadPhotoAsync(photo.FileName, new MemoryStream(photo.Value));
 
             if (url == null)
             {

@@ -15,10 +15,10 @@ namespace InnoClinic.DocumentsAPI.Controllers
             _photoService = photoService;
         }
 
-        [HttpGet("{photoId:guid}")]
-        public async Task<IActionResult> GetPhotoById(Guid photoId)
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetPhotoById(Guid id)
         {
-            var photo = await _photoService.GetPhotoAsync(photoId);
+            var photo = await _photoService.GetPhotoAsync(id);
 
             return Ok(photo);
         }
@@ -31,18 +31,18 @@ namespace InnoClinic.DocumentsAPI.Controllers
             return CreatedAtAction(nameof(GetPhotoById), new { photoId = photoDto.Id }, photoDto);
         }
 
-        [HttpPut("{photoId:guid}")]
-        public async Task<IActionResult> UpdatePhoto(Guid photoId, [FromBody] PhotoForUpdateDto photo)
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdatePhoto(Guid id, [FromBody] PhotoForUpdateDto photo)
         {
-            await _photoService.UpdatePhotoAsync(photoId, photo);
+            await _photoService.UpdatePhotoAsync(id, photo);
 
             return NoContent();
         }
 
-        [HttpDelete("{photoId:guid}")]
-        public async Task<IActionResult> DeletePhoto(Guid photoId)
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeletePhoto(Guid id)
         {
-            await _photoService.DeletePhotoAsync(photoId);
+            await _photoService.DeletePhotoAsync(id);
 
             return NoContent();
         }

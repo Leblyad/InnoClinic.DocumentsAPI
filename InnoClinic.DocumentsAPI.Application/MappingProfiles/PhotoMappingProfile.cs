@@ -9,13 +9,16 @@ namespace InnoClinic.DocumentsAPI.Application.MappingProfiles
     {
         public PhotoMappingProfile()
         {
-            CreateMap<Photo, PhotoDto>().ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id.ToString()));
+            CreateMap<Photo, PhotoDto>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id.ToString()));
 
-            CreateMap<PhotoForCreationDto, Photo>().ForMember(dest => dest.Id, opts => opts.MapFrom(src => Guid.NewGuid()))
+            CreateMap<PhotoForCreationDto, Photo>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.PartitionKey, opts => opts.MapFrom(src => FileType.Photo.ToString()))
                 .AfterMap((src, dest) => dest.RowKey = dest.Id.ToString());
 
-            CreateMap<PhotoForUpdateDto, Photo>().ForMember(dest => dest.PartitionKey, opts => opts.MapFrom(src => FileType.Photo.ToString()));
+            CreateMap<PhotoForUpdateDto, Photo>()
+                .ForMember(dest => dest.PartitionKey, opts => opts.MapFrom(src => FileType.Photo.ToString()));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Azure.Data.Tables;
+using InnoClinic.DocumentsAPI.Core.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace InnoClinic.DocumentsAPI.Core.Entities.Models
@@ -13,7 +14,7 @@ namespace InnoClinic.DocumentsAPI.Core.Entities.Models
         [Required]
         public Guid ResultId { get; set; }
         [Required]
-        public string Type = nameof(Document);
+        public string Type = nameof(FileType.Document);
         public string PartitionKey { get; set; }
         public string RowKey { get; set; }
         public DateTimeOffset? Timestamp { get; set; }

@@ -22,7 +22,6 @@ namespace InnoClinic.DocumentsAPI.Extensions
         {
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IDocumentService, DocumentService>();
-            services.AddScoped<IBlobRepository, BlobRepository>();
         }
 
         public static void ConfigureRepositories(this IServiceCollection services)

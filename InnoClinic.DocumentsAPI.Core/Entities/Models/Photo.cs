@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Azure.Data.Tables;
+using InnoClinic.DocumentsAPI.Core.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace InnoClinic.DocumentsAPI.Core.Entities.Models
@@ -11,7 +12,7 @@ namespace InnoClinic.DocumentsAPI.Core.Entities.Models
         [Required]
         public string Url { get; set; }
         [Required]
-        public string Type = nameof(Photo);
+        public string Type = nameof(FileType.Photo);
         public string PartitionKey { get; set; }
         public string RowKey { get; set; }
         public DateTimeOffset? Timestamp { get; set; }

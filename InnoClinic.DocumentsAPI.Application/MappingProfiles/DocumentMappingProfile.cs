@@ -9,13 +9,16 @@ namespace InnoClinic.DocumentsAPI.Application.MappingProfiles
     {
         public DocumentMappingProfile()
         {
-            CreateMap<Document, DocumentDto>().ForMember(src => src.Id, opts => opts.MapFrom(dest => dest.Id.ToString()));
+            CreateMap<Document, DocumentDto>()
+                .ForMember(src => src.Id, opts => opts.MapFrom(dest => dest.Id.ToString()));
 
-            CreateMap<DocumentForCreationDto, Document>().ForMember(dest => dest.Id, opts => opts.MapFrom(src => Guid.NewGuid()))
+            CreateMap<DocumentForCreationDto, Document>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.PartitionKey, opts => opts.MapFrom(src => FileType.Document.ToString()))
                 .AfterMap((src, dest) => dest.RowKey = dest.Id.ToString()); ;
 
-            CreateMap<DocumentForUpdateDto, Document>().ForMember(dest => dest.PartitionKey, opts => opts.MapFrom(src => FileType.Document.ToString()));
+            CreateMap<DocumentForUpdateDto, Document>()
+                .ForMember(dest => dest.PartitionKey, opts => opts.MapFrom(src => FileType.Document.ToString()));
         }
     }
 }

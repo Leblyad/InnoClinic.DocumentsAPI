@@ -8,5 +8,6 @@ namespace InnoClinic.DocumentsAPI.Application.Services.Abstractions
         Task DeleteDocumentAsync(Guid documentId);
         Task<DocumentDto> GetDocumentAsync(Guid documentId);
         Task UpdateDocumentAsync(Guid documentId, DocumentForUpdateDto document);
+        Task<DocumentDto> GetDocumentByResultIdAsync(Guid resultId);
     }
 }
