@@ -8,5 +8,6 @@ namespace InnoClinic.DocumentsAPI.Application.Services.Abstractions
         Task DeletePhotoAsync(Guid photoId);
         Task<PhotoDto> GetPhotoAsync(Guid photoId);
         Task UpdatePhotoAsync(Guid photoId, PhotoForUpdateDto photo);
+        Task<IEnumerable<PhotoDto>> GetPhotosAsync(IEnumerable<Guid> ids);
     }
 }

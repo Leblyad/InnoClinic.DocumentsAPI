@@ -56,6 +56,13 @@ namespace InnoClinic.DocumentsAPI.Application.Services
             return _mapper.Map<PhotoDto>(photo);
         }
 
+        public async Task<IEnumerable<PhotoDto>> GetPhotosAsync(IEnumerable<Guid> ids)
+        {
+            var photos = await _photoRepository.GetPhotosAsync(ids);
+
+            return _mapper.Map<IEnumerable<PhotoDto>>(photos);
+        }
+
         public async Task UpdatePhotoAsync(Guid photoId, PhotoForUpdateDto photo)
         {
             if (photo == null)

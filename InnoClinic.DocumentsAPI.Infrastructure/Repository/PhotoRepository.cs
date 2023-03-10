@@ -23,5 +23,16 @@ namespace InnoClinic.DocumentsAPI.Infrastructure.Repository
         public async Task UpdatePhotoAsync(Photo photo) => await Update(photo);
 
         public async Task<string> UploadPhotoAsync(string fileName, Stream fileStream) => await UploadAsync(fileName, fileStream);
+
+        public async Task<IEnumerable<Photo>> GetPhotosAsync(IEnumerable<Guid> ids)
+        {
+            List<Photo> photos = new List<Photo>();
+            for (int i = 0; i < ids.Count(); i++)
+            {
+                var photo = await _tableClient.GetEntityAsync<Photo>(nameof(FileType.Photo), ids.ElementAt(i).ToString());
+                photos.Add(photo);
+            }
+            return photos;
+        }
     }
 }

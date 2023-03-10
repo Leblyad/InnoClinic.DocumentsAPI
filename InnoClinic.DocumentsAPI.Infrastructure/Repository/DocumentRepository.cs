@@ -23,7 +23,7 @@ namespace InnoClinic.DocumentsAPI.Infrastructure.Repository
 
         public async Task<string> UploadDocumentAsync(string fileName, Stream fileStream) => await UploadAsync(fileName, fileStream);
 
-        public async Task<Document> GetDocumentByResultId(Guid resultId) => 
+        public async Task<Document> GetDocumentByResultId(Guid resultId) =>
             await _tableClient.QueryAsync<Document>($@"ResultId eq '{resultId}'").FirstOrDefaultAsync();
     }
 }

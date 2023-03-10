@@ -60,7 +60,7 @@ namespace InnoClinic.DocumentsAPI.Application.Services
         {
             var document = await _documentRepository.GetDocumentByResultId(resultId);
 
-            if(document == null)
+            if (document == null)
             {
                 throw new DocumentNotFoundException(resultId);
             }

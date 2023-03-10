@@ -9,5 +9,6 @@ namespace InnoClinic.DocumentsAPI.Core.Contracts.Repositories.UserRepositories
         Task<Photo> GetPhotoAsync(string photoId);
         Task UpdatePhotoAsync(Photo photo);
         Task<string> UploadPhotoAsync(string fileName, Stream fileStream);
+        Task<IEnumerable<Photo>> GetPhotosAsync(IEnumerable<Guid> ids);
     }
 }
